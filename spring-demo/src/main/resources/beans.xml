@@ -6,7 +6,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd"
+        default-init-method="initialize" default-destroy-method="dest">
 	<bean id="triangle" class="com.brathisv.spring.Triangle" init-method="init"  destroy-method="destroy" autowire="byName">
 		<property name="type" value="Equilateral"></property>
 		<property name="point1" ref="pointt">
@@ -51,12 +52,17 @@
 	<alias name="triangle" alias="tri"/>
 
 	<bean id="point3" class="com.brathisv.spring.Point" scope="prototype">
-		<property name="x" value="0"></property>
-		<property name="y" value="20"></property>
+		<property name="x" value="${point3.x}"></property>
+		<property name="y" value="${point3.y}"></property>
 	</bean>
 
 	<bean id="circle" class="com.brathisv.spring.Circle" name="cir">
 		<constructor-arg value="This "></constructor-arg>
 	</bean>
-	
+	<bean class="com.brathisv.spring.DisplayNameBeanPostProcessor"/>
+	<bean class="com.brathisv.spring.BeanFactoryPP"/>
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceHolderConfigurer">
+		<property name="locations" value="classpath:ApplicationResource.properties"></property>
+	</bean> -->
+	<context:property-placeholder location="classpath:ApplicationResource.properties"/>
 </beans>

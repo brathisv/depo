@@ -4,17 +4,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Triangle {
+import org.springframework.beans.factory.InitializingBean;
+
+public class Triangle implements InitializingBean {
 
 	private String type;
-	
+
 	private Point point1;
 	private Point point2;
 	private Point point3;
 	private List<String> lists;
 	private Set<String> sets;
 	private Map<String, Integer> maps;
-	
+
 	public List<String> getLists() {
 		return lists;
 	}
@@ -39,14 +41,15 @@ public class Triangle {
 		this.maps = maps;
 	}
 
+	// bean init will be called after initializingBean is called : step 5
 	public void init() {
 		System.out.println("initialize");
 	}
-	
+
 	public void destroy() {
 		System.out.println("Destroy");
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -85,8 +88,39 @@ public class Triangle {
 		sets.forEach(s -> System.out.println(s));
 		System.out.println("Map");
 		maps.forEach((key, value) -> {
-			System.out.println(key + ", "+ value);
-		}); 
-		System.out.println(getType() + " triangle is drawn with :: "+ point1 + point2 + point3);
+			System.out.println(key + ", " + value);
+		});
+		System.out.println(getType() + " triangle is drawn with :: " + point1 + point2 + point3);
+	}
+
+	// Constructor will be called after normal initialization :: Step 3
+	public Triangle() {
+		System.out.println("This is constructor");
+	}
+
+	// called at very first :: step 1
+	static {
+		System.out.println("This is static block");
+	}
+
+	// All normal block will execute after static block :: step 2
+	{
+		System.out.println("This is normal block");
+	}
+
+	{
+		System.out.println("This is normal block 2");
+	}
+
+	/**
+	 * This is the first method to call when initialized after constructor :: Step 4
+	 */
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("Initializing Bean is called");
+	}
+
+	public void initialize() {
+		System.out.println("global init");
 	}
 }

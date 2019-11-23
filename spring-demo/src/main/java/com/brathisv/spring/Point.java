@@ -29,4 +29,7 @@ public class Point {
 		return "Point [x=" + x + ", y=" + y + "]";
 	}
 
+	public void initialize() {
+		System.out.println("Point "+this.toString());
+	}
 }
