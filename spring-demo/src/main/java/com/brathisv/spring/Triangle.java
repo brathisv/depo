@@ -5,11 +5,16 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Required;
 
 public class Triangle implements InitializingBean {
 
 	private String type;
 
+	@Autowired
+	@Qualifier(value = "point1Related")
 	private Point point1;
 	private Point point2;
 	private Point point3;
@@ -74,6 +79,7 @@ public class Triangle implements InitializingBean {
 		return point3;
 	}
 
+	@Required
 	public void setPoint3(Point point3) {
 		this.point3 = point3;
 	}
