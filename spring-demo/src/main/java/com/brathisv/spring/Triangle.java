@@ -1,5 +1,9 @@
 package com.brathisv.spring;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class Triangle {
 
 	private String type;
@@ -7,6 +11,41 @@ public class Triangle {
 	private Point point1;
 	private Point point2;
 	private Point point3;
+	private List<String> lists;
+	private Set<String> sets;
+	private Map<String, Integer> maps;
+	
+	public List<String> getLists() {
+		return lists;
+	}
+
+	public void setLists(List<String> lists) {
+		this.lists = lists;
+	}
+
+	public Set<String> getSets() {
+		return sets;
+	}
+
+	public void setSets(Set<String> sets) {
+		this.sets = sets;
+	}
+
+	public Map<String, Integer> getMaps() {
+		return maps;
+	}
+
+	public void setMaps(Map<String, Integer> maps) {
+		this.maps = maps;
+	}
+
+	public void init() {
+		System.out.println("initialize");
+	}
+	
+	public void destroy() {
+		System.out.println("Destroy");
+	}
 	
 	public String getType() {
 		return type;
@@ -41,6 +80,13 @@ public class Triangle {
 	}
 
 	public void draw() {
+		lists.forEach(s -> System.out.println(s));
+		System.out.println("Set");
+		sets.forEach(s -> System.out.println(s));
+		System.out.println("Map");
+		maps.forEach((key, value) -> {
+			System.out.println(key + ", "+ value);
+		}); 
 		System.out.println(getType() + " triangle is drawn with :: "+ point1 + point2 + point3);
 	}
 }

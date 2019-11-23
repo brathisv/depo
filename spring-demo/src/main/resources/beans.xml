@@ -7,10 +7,9 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-	<bean id="triangle" class="com.brathisv.spring.Triangle">
+	<bean id="triangle" class="com.brathisv.spring.Triangle" init-method="init"  destroy-method="destroy" autowire="byName">
 		<property name="type" value="Equilateral"></property>
-		<property name="point1" >	
-			<idref bean="pointt"/>
+		<property name="point1" ref="pointt">
 		</property>
 		<property name="point2">
 			<bean id="point2" class="com.brathisv.spring.Point">
@@ -18,7 +17,31 @@
 				<property name="y" value="0"></property>
 			</bean>
 		</property>
-		<property name="point3" ref="point3"></property>
+		<!-- <property name="point3" ref="point3"></property> -->
+		<property name="lists">
+			<list>
+				<value>one</value>
+				<value>two</value>
+				<value>three</value>
+			</list>
+		</property>
+		<property name="sets">
+			<set>
+				<value>One</value>
+				<value>Two</value>
+				<value>One</value>
+				<value>Three</value>
+			</set>
+		</property>
+		
+		<property name="maps">
+			<map>
+				<entry key="one" value="1"></entry>
+				<entry key="two" value="2"></entry>
+				<entry key="three" value="3"></entry>
+				<entry key="two" value="22"></entry>
+			</map>
+		</property>
 	</bean>
 	<bean id="pointt" class="com.brathisv.spring.Point">
 		<property name="x" value="0"></property>
@@ -27,7 +50,7 @@
 	
 	<alias name="triangle" alias="tri"/>
 
-	<bean id="point3" class="com.brathisv.spring.Point">
+	<bean id="point3" class="com.brathisv.spring.Point" scope="prototype">
 		<property name="x" value="0"></property>
 		<property name="y" value="20"></property>
 	</bean>
