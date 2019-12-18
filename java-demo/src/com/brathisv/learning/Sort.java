@@ -5,11 +5,43 @@ import java.util.Arrays;
 public class Sort {
 
 	public static void main(String[] args) {
-		radixSort(new int[] {32,5,7,54,5,6,101,0,9,8,7,6,7,9,200,2,2});
+		countingSort1(new int[] {32,5,7,0,54,5,6,101,0,9,8,7,6,7,9,200,2,2,0,500,201,345,900,23,1000,46,56,76,34,98,67,23,109,78,678,876,434,988,666});
 	}
 	
 
 	public static int[] countingSort(int[] input) {
+		int[] output = new int[input.length];
+		printArray(output);
+		int total = 0;
+		//find the maximum number
+		int max = findMax(input);
+		System.out.println("input ");
+		printArray(input);
+		int[] count = new int[max+1];
+		for(int i: input) {
+			total++;
+			count[i]++;
+		}
+		System.out.println("Count ");
+		printArray(count);
+		for(int i=1;i<count.length;i++) {
+			total++;
+			count[i] += count[i-1];
+		}
+		System.out.println("Position ");
+		printArray(count);
+		for(int i=input.length-1;i>=0;i--) {
+			total++;
+			output[--count[input[i]]] = input[i];
+		}
+		System.out.println("Sorted Array complexity : O(n+max number)");
+		printArray(output);
+		System.out.println("Total on of iterations "+ total + " for array "+ input.length);
+		return output;
+	}
+	
+	private static int[] countingSort1(int[] input) {
+		int total = 0;
 		int[] output = new int[input.length];
 		printArray(output);
 		//find the maximum number
@@ -19,20 +51,32 @@ public class Sort {
 		int[] count = new int[max+1];
 		for(int i: input) {
 			count[i]++;
+			total++;
 		}
-		System.out.println("Count ");
-		printArray(count);
-		for(int i=1;i<count.length;i++) {
-			count[i] += count[i-1];
-		}
-		System.out.println("Position ");
-		printArray(count);
-		for(int i=input.length-1;i>=0;i--) {
-			output[--count[input[i]]] = input[i];
+		
+		
+		int j=0;
+		for(int i=0;i<count.length;i++) {
+			if(i == 0 && count[i] == 0) {
+				for(int k=0;k<count[i];k++) {
+					output[j++] = i;
+					total++;
+				}
+			}
+			if(count[i] > 0) {
+				for(int k=0;k<count[i];k++) {
+					output[j++] = i;
+					total++;
+				}
+			}else {
+				total++;
+			}
 		}
 		System.out.println("Sorted Array complexity : O(n+max number)");
 		printArray(output);
+		System.out.println("Total on of iterations "+ total + " for array "+ input.length);
 		return output;
+	
 	}
 
 
